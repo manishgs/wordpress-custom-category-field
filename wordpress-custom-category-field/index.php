@@ -31,4 +31,30 @@ function category_edit_form_fields ($id) {
         <?php 
     }
 
+   
+if(defined('WP_ADMIN') && current_user_can('manage_categories')) update_term();
+
+function update_term() {
+
+	if(!isset($_POST['action'])) return;
+	switch($_POST['action']) {
+		case 'editedtag':
+		case 'addtag':
+		case 'editedcat':
+		case 'addcat':
+		case 'add-cat':
+		case 'add-tag':
+		case 'add-link-cat':
+				update_option('tacms_term_name',$_POST['cat_meta_np']);
+		break;
+		case 'delete-tag':
+				update_option('tacms_term_name',time());
+		break;
+			}
+	}
+
+
+print_r(get_option('tacms_term_name'));
+ 
+
 ?>
